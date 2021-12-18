@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title%}
+About
+{% endblock %}
+
+<!-- using block and super()-->
+{% block tohen %}
+     {{ super() }}
+    <div id="main">
+        <h1 style="color: black" >{{ "My Preferences"   |replace("Preferences", "Hobbies")}}</h1>
+        {%  for key , value in profile.items() %}
+            <h4> {{ key }}:{{ value  | upper()}}</h4>
+        {% endfor %}
+        <h4>University: {{  university | default('unspecified' , true) }}</h4>
+        <h4> Hobbies:</h4>
+        <ul>
+            {% for hobby in hobbies %}
+                <li style="color: black"> {{ hobby }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
