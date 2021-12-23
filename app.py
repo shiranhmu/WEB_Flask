@@ -43,12 +43,12 @@ def catalog_func():
     return render_template('catalog.html')
 
 
-#assignment9
-Users = [{"user": "Yossi", "email": "yo@gmail.com"},
-         {"user": "Shiran", "email": "sh@gmail.com"},
-         {"user": 'Dotan', "email": "do@gmail.com"},
-         {"user": "Linor", "email": "li@gmail.com"},
-        {"user": "Oz", "email": "oz@gmail.com"}]
+
+Users = {"user1": {"User": "Yossi", "Email": "yo@gmail.com"},
+         "user2": {"User": "Shiran", "Email": "sh@gmail.com"},
+         "user3": {"User": "Dotan", "Email": "do@gmail.com"},
+         "user4": {"User": "Linor", "Email": "li@gmail.com"},
+         "user5": {"User": "Oz", "Email": "oz@gmail.com"} }
 
 @app.route('/logout')
 def logout_func():
@@ -61,17 +61,10 @@ def login_func():
     if request.method == 'GET':
         if 'searchinput' in request.args:
             search = request.args['searchinput']
-        else:
-            search = ""
-        if search == "": #empty string
-            return render_template('assignment9.html' , search=Users)
-        flag = False
-        for user in Users:
-            if user['user'] == search or user['email'] == search:
-                flag = True
-                return render_template('assignment9.html', searchfound=user)
-        if not flag:
-            return render_template('assignment9.html', notfound="not found!")
+            return render_template('assignment9.html', UserName=session['UserName']
+                                                     , search=search
+                                                     , Users=Users)
+        return render_template('assignment9.html' , UserName=session['UserName'], Users=Users)
 
     # GET ->args  POST -> form
     if request.method == 'POST':

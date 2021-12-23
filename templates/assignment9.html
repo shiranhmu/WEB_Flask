@@ -6,28 +6,40 @@ Assignment 9
 
 {% block tohen %}
     <div style="color: black">
-        <!--Search form-->
-        <h1> Search  </h1>
-        <form action="/assignment9" method="GET">
-            <input name="searchinput" type="text">
-            <input  type="submit">
-        </form>
-        {% if searchfound  %}<!-- If a user find one of the users from this list of users-->
-            <h4>{{ searchfound.user }}</h4>
-            <h4>{{ searchfound.email }}</h4>
-        {% elif search %}
-            {% for user in search %} <!-- If a user presses submit button-->
-                UserName: <h4>{{ user.user }}</h4>
-                Email: <h4> {{ user.email }}</h4>
-            {%  endfor %}
-        {% elif notfound %}<!-- If a user doesn't find-->
-            <h4> {{ notfound }}</h4>
-        {% endif %}
-
         <!--Registration form-->
         {% if session.UserName %}
             <h3> Welcome back, {{  session.UserName }}! </h3>
+            <!--Search form-->
+            <h1> Search  </h1>
+            <form action="/assignment9" method="GET">
+                <input name="searchinput" type="text">
+                <input  type="submit">
+            </form>
+            {% if search %}
+                {% for user in Users.values() %}
+                    {% for x in user %}
+                        {% if search==user[x] %}<!-- If a user find one of the users from this list of users-->
+                            {% for i in user %}
+                                <h3>{{ i }}: {{ user[i]}}</h3>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+            {% if search == "" %} <!-- If a user presses submit button-->
+                <span>
+                {% for x in Users.values() %}
+                    {% for user in x %}
+                        <h4>{{ user }}: {{ x[user]}} </h4>
+                    {% endfor %}
+                    <br>
+                {%  endfor %}
+                </span>
+            {% endif %}
+
         {% else %}
+
             <h1> Please Log in!</h1>
             <form action="/assignment9" method="POST">
                 UserName: <input name="UserName" type="text">
@@ -35,5 +47,8 @@ Assignment 9
                 <input  type="submit">
             </form>
         {% endif %}
+
+
+
     </div>
 {%  endblock %}
