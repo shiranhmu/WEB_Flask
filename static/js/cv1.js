@@ -8,3 +8,7 @@ function checkAPI(){
         document.getElementById("demo").innerHTML = "Input OK";
     }
 }
+
+function confirm() {
+    alert("Database Updated!");
+}

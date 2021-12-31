@@ -1,8 +1,10 @@
 from flask import Flask, redirect, url_for
 from flask import render_template, request, session
+from interact_with_DB import interact_db
 
 app = Flask(__name__)
 app.secret_key = '123'
+app.config.from_pyfile('settings.py')
 
 #assignment8
 @app.route('/home_page')
@@ -43,7 +45,7 @@ def catalog_func():
     return render_template('catalog.html')
 
 
-
+#assignment9
 Users = {"user1": {"User": "Yossi", "Email": "yo@gmail.com"},
          "user2": {"User": "Shiran", "Email": "sh@gmail.com"},
          "user3": {"User": "Dotan", "Email": "do@gmail.com"},
@@ -79,6 +81,9 @@ def login_func():
         else:
             return render_template('assignment9.html')
 
+# assignment10
+from assignment10.assignment10 import assignment10
+app.register_blueprint(assignment10)
 
 
 if __name__ == '__main__':
