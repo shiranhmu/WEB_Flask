@@ -1,6 +1,11 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, Blueprint
 from flask import render_template, request, session
+from flask import json, jsonify
+import requests
+import os, sys
+
 from interact_with_DB import interact_db
+
 
 app = Flask(__name__)
 app.secret_key = '123'
@@ -29,15 +34,15 @@ def myCV_func():
 @app.route('/assignment8')
 def about_func():
     return render_template('assignment8.html',
-     profile={'Name': 'Shiran','Second_Name':'Hamou'},
-     university='Bgu',
-     hobbies=('sport','music','trips', 'sql', 'fun'))
+                    profile={'Name': 'Shiran','Second_Name':'Hamou'},
+                    university='Bgu',
+                    hobbies=('sport','music','trips', 'sql', 'fun'))
 
 @app.route('/catalog')
 def catalog_func():
-    if 'user_inside' in session:
-        if session['user_inside']:
-            print('user_inside')
+    if 'UserName' in session:
+        if session['UserName']:
+            print('UserName')
     if 'product' in request.args:
         product= request.args['product']
         size= request.args['size']
@@ -66,10 +71,10 @@ def login_func():
             return render_template('assignment9.html', UserName=session['UserName']
                                                      , search=search
                                                      , Users=Users)
-        return render_template('assignment9.html' , UserName=session['UserName'], Users=Users)
+        return render_template('assignment9.html', Users=Users)
 
     # GET ->args  POST -> form
-    if request.method == 'POST':
+    elif request.method == 'POST':
         UserName = request.form['UserName']
         Password = request.form['Password']
         #DB
@@ -81,10 +86,40 @@ def login_func():
         else:
             return render_template('assignment9.html')
 
-# assignment10
+## assignment10
 from assignment10.assignment10 import assignment10
 app.register_blueprint(assignment10)
 
+# assignment11
+@app.route('/assignment11', methods=['GET'])
+def assignment11_func():
+    return render_template('assignment11.html')
+
+def get_usersFromLink(num):
+    res = requests.get(f'https://reqres.in/api/users/{num}')
+    res = res.json()
+    return res
+
+
+@app.route('/assignment11/users' )
+def users_MyDB_func():#return a list of users from a table ‘users’ from myDB in json format
+    myDB = {}
+    query = "select * from users ;"
+    query_result = interact_db(query=query, query_type='fetch')
+    for user in query_result:
+        myDB[f'{user.id}'] = {'id': user.id, 'name': user.name,
+                              'email': user.email, 'password': user.password }
+    return render_template('assignment11.html', query_result=myDB)
+
+@app.route('/assignment11/outer_source')
+def users_outSource_func():
+    num = 1
+    if "backend" in request.args: #backend form
+        num = int(request.args['backend'])
+        user = get_usersFromLink(num)
+        return render_template('assignment11.html', backend=user)
+    else:
+        return render_template('assignment11.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

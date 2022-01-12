@@ -1,9 +1,15 @@
 <header>
-    <a href="/"> Home </a> |<a href="/myCV">my CV </a>| <a href="/contact"> Contact Me</a> |<a href="/assignment9"> Assignment 9 </a>|
-    <a href="/assignment10"> Assignment 10 </a>
+    <a href="/"> Home </a> |<a href="/myCV">my CV </a>|
+    <a href="/contact"> Contact Me</a> |
+    <a href="/assignment9"> Assignment 9 </a>|
+    <a href="/assignment10"> Assignment 10 </a> |
+    <a href="/assignment11"> Assignment 11 </a> |
     {% if session.UserName %}
+        <h3> Welcome {{ session['UserName'] }}!</h3>
         <a href="/logout">Log Out</a>
     {% else %}
         <a href="/assignment9">Log In</a>
     {% endif %}
+
+
 </header>

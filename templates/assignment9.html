@@ -8,7 +8,7 @@ Assignment 9
     <div style="color: black">
         <!--Registration form-->
         {% if session.UserName %}
-            <h3> Welcome back, {{  session.UserName }}! </h3>
+            <h3> Welcome back, {{ session.UserName }}! </h3>
             <!--Search form-->
             <h1> Search  </h1>
             <form action="/assignment9" method="GET">
@@ -44,11 +44,9 @@ Assignment 9
             <form action="/assignment9" method="POST">
                 UserName: <input name="UserName" type="text">
                 Password: <input name="Password" type="password">
-                <input  type="submit">
+                <input type="submit">
             </form>
         {% endif %}
-
-
 
     </div>
 {%  endblock %}

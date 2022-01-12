@@ -1,46 +1,46 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
 {% block title%}
-Assignment 10
+    Assignment 10
 {% endblock %}
 
 {% block tohen %}
-<div style="color: black">
-    <!-- INSERT -->
-    <h1>Users Page </h1>
-    <h3> Insert User:</h3>
-    <form action="/insert_user" method="post">
-        <input name="name" type="text" placeholder="Name" >
-        <input name="email" type="email" placeholder="Email" >
-        <input type="password" name="password" placeholder="Password" >
-        <input value="Insert" type="submit">
-    </form>
-    <hr>
+    <div style="color: black">
+        <!-- INSERT -->
+        <h1>Users Page </h1>
+        <h3> Insert User:</h3>
+        <form action="/insert_user" method="post">
+            <input name="name" type="text" placeholder="Name" >
+            <input name="email" type="email" placeholder="Email" >
+            <input type="password" name="password" placeholder="Password" >
+            <input value="Insert" type="submit" onclick="confirm()">
+        </form>
+        <hr>
 
-    <!-- DELETE -->
-    <h3> Users List:</h3>
-    <ul>
-        {% for user in users %}
-            <li>
-                <form action="/delete_user" method="post" style="display: inline">
-                    <input type="hidden" name="id" value="{{ user.id }}">
-                    <input type="submit" value="Delete">
-                </form>
-                ID: {{ user.id }}, Name: {{ user.name }}, Email: {{ user.email }}
-            </li>
-        {%  endfor %}
-    </ul>
-    <hr>
+        <!-- DELETE -->
+        <h3> Users List:</h3>
+        <ul>
+            {% for user in users %}
+                <li>
+                    <form action="/delete_user" method="post" style="display: inline">
+                        <input type="hidden" name="id" value="{{ user.id }}">
+                        <input type="submit" value="Delete" onclick="confirm()">
+                    </form>
+                    ID: {{ user.id }}, Name: {{ user.name }}, Email: {{ user.email }}
+                </li>
+            {%  endfor %}
+        </ul>
+        <hr>
 
-    <!-- UPDATE -->
-    <h3> Update List:</h3>
-    <form action="/update_user" method="POST" name="update" >
-        <input name="id" type="text" placeholder="Enter ID Here">
-        <input name="name" type="text" placeholder="Enter Name Here">
-        <input name="email" type="email" placeholder="Enter Email Here">
-        <input name="password" type="password" placeholder="Enter Password Here">
-        <input type="submit" value="Update" onclick="confirm()">
-    </form>
-</div>
+        <!-- UPDATE -->
+        <h3> Update List:</h3>
+        <form action="/update_user" method="POST" name="update" >
+            <input name="id" type="text" placeholder="Enter ID Here">
+            <input name="name" type="text" placeholder="Enter Name Here">
+            <input name="email" type="email" placeholder="Enter Email Here">
+            <input name="password" type="password" placeholder="Enter Password Here">
+            <input type="submit" value="Update" onclick="confirm()" >
+        </form>
+    </div>
 
 {% endblock %}

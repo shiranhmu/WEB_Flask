@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <title>{%  block title %}{%  endblock %}</title>
     <link rel="stylesheet" href="/static/css/cv1.css">
-     <script src="/static/cv1.js"> </script>
+
 </head>
 <body>
-    {% include  'header.html' %}
-    <hr>
-    {%  block tohen %}
+{% include  'header.html' %}
+<hr>
+{%  block tohen %}
     <h5> Message from Base </h5>
-    {% endblock %}
-    <hr>
-    {% include 'footer.html' %}
+{% endblock %}
+<hr>
+{% include 'footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/cv1.js') }}"> </script>
 </body>
 </html>

@@ -45,11 +45,9 @@ def insert_user_func():
 
 @assignment10.route('/delete_user', methods=['POST'])
 def delete_user_func():
-    if request.method == 'POST':
-        user_id = request.form['id']
-        query = "DELETE FROM users WHERE id='%s';" % user_id
-        interact_db(query=query, query_type='commit')
-        return render_template('assignment10.html')
+    user_id = request.form['id']
+    query = "DELETE FROM users WHERE id='%s';" % user_id
+    interact_db(query=query, query_type='commit')
     return render_template('assignment10.html')
 
 # ------------------------------------------------- #

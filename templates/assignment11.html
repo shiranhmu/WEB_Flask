@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title%}
+    Assignment 11
+{% endblock %}
+
+{% block tohen %}
+    <div style="color: black" >
+        <!-- list of users from a table ‘users’ from my DB in a json format-->
+        <h1> Users from My DB</h1>
+        {% if query_result %}
+            <h3> List of Users from My DB in a json format </h3>
+            {{ query_result }}
+        {% else %}
+            <h3> Get List of Users from My DB in a json format</h3>
+            <form action="/assignment11/users" method="GET">
+                <input type="submit" value="Get Users">
+            </form>
+        {% endif %}
+        <hr>
+
+        <!--fetch function - js-->
+        <h1>  Req Frontend </h1>
+        <input type="number" id="number" name="number">
+        <input type="submit" value="Get user Frontend" onclick="getUsers()">
+        <main> </main>
+        <script src="../static/js/cv1.js" ></script>
+        <hr>
+
+        <!--import requests - python-->
+        <h1>  Req Backend </h1>
+        <form action="/assignment11/outer_source">
+            <input type="number" name="backend">
+            <input type="submit" value="Get user Backend">
+        </form>
+
+        {% if backend %}
+            <h2> yesss</h2>
+            <br>
+            <img src="{{ backend['data'].avatar }}" alt="user pic">
+            <li>
+            <h22>First Name: {{ backend['data'].first_name }}</h22>
+            <li>
+            <h22>Last Name: {{ backend['data'].last_name }}</h22>
+            <li>
+            <h22>Email: {{ backend['data'].email }}</h22>
+            <br>
+        {% endif %}
+
+    </div>
+{% endblock %}
