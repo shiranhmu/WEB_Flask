@@ -36,7 +36,7 @@ def insert_user_func():
     interact_db(query=query, query_type='commit')
 
     # come back to users
-    return render_template('assignment10.html')
+    return redirect('/assignment10')
 
 
 # ------------------------------------------------- #
@@ -48,7 +48,7 @@ def delete_user_func():
     user_id = request.form['id']
     query = "DELETE FROM users WHERE id='%s';" % user_id
     interact_db(query=query, query_type='commit')
-    return render_template('assignment10.html')
+    return redirect('/assignment10')
 
 # ------------------------------------------------- #
 # ------------------- UPDATE ---------------------- #

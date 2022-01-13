@@ -121,5 +121,29 @@ def users_outSource_func():
     else:
         return render_template('assignment11.html')
 
+@app.route('/assignment12/restapi_users', defaults={'user_id': -1})
+@app.route('/assignment12/restapi_users/<int:user_id>')
+def get_users_func(user_id):
+    if user_id == -1:
+        user_id = 1 #return me as a default user
+    return_dict = {}
+    query = 'select * from users where id=%s;' % user_id
+    users = interact_db(query=query, query_type= 'fetch')
+    #print(type(user_id))
+    if len(users) == 0 :
+        return_dict = {
+            'status': 'failed',
+            'message': 'user not found'
+        }# return some error message also in json format.
+    else:
+        return_dict = {
+            'status': 'success',
+            'id': users[0].id,
+            'name': users[0].name,
+            'email': users[0].email,
+        }
+    return jsonify(return_dict) #return user’s data in json format
+
+
 if __name__ == '__main__':
     app.run(debug=True)
